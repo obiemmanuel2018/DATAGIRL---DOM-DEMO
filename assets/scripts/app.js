@@ -8,28 +8,26 @@ const movieRating = document.querySelector("#rating");
 const movies = [];
 
 const deleteMovieHandler = (id) => {
-  console.log("I am to Delete Movie with ID", id);
+  // console.log("I am to Delete Movie with ID", id);
 };
 const updateUI = (movie) => {
   if (movies.length) {
     const entryText = document.querySelector("#entry-text");
     entryText.style.display = "none";
     const movieList = document.querySelector("#movie-list");
+    const li = document.createElement("li");
+    li.innerHTML = `
+    <div class="movie-element__image">
+        <img src="${movie.imageURL}" alt="${movie.title}">
+    </div>
+    <div class="movie-element__info">
+        <h2>${movie.title}</h2>
+        <p>${movie.rating}/5 stars</p>
+    </div>`;
 
-    movieList.innerHTML += `
-           <li>
-           <div onClick=${deleteMovieHandler(movie.id)} id=${movie.id} class="modal_element">
-             <div class="movie-element__image">
-                <img src="${movie.imageURL}" alt="">
-             </div>
-             <div class="movie-element__info">
-                <h2>${movie.title}</h2>
-                <p>${movie.rating}</p>
-             </div>
-           </div>
-         </li>`;
-    // const movieDiv = movieList.querySelector(`.model_element`);
-    // movieDiv.addEventListener("click", deleteMovieHandler.bind(movie.id));
+    li.addEventListener("click", deleteMovieHandler.bind(null, movie.id))
+    movieList.appendChild(li);
+    
   }
 };
 const validate = () => {
